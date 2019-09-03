@@ -31,57 +31,106 @@ public class LottoServiceImpl implements LottoService{
 	public void createLotto(LottoBean param) {
 		lotto = new LottoBean();
 		param.setLottoSeq(createLottoSeq());
-		param.setBall(createBall());
+		param.setBall(String.valueOf(createBall()));
 		param.setLotteryNum(createLotteryNum());
 		dao.insertLotto(param);
 		}
 
 	public String createLottoSeq() {
 		String lottoSeq = "No.";
-		Random ran = new Random();
 		for(int i = 0; i < 4; i++) {
-			lottoSeq += ran.nextInt(10);
+			lottoSeq += (int) (Math.random() * 10);
 		}
 		lotto.setLottoSeq(lottoSeq);
 		return lottoSeq;
 	}
 
-	public String createBall() {
-		return new Random().nextInt(45)+1+"";
+	public int createBall() {
+		return (int) (Math.random() * 45)+1;
 	}
 
 	public String createLotteryNum() {
 		int[] arr = new int[6];
-		String lotteryNum = "";
-		for(int i = 0; i < 6; i++) {
-			int t = Integer.parseInt(createBall());
-			if(!duplicatePrevention(arr, t)) {
+		String result = "";
+		for(int i = 0; i < arr.length; i++) {
+			int t = createBall();
+			if(!exist(arr, t)) {
 				arr[i] = t;
+			}else {
+				i--;
 			}
 		}
-
-		Arrays.sort(arr);
-
-		for(int i=0; i<6; i++) {
-			lotteryNum += i==5? arr[i] : arr[i] + ",";			
+		arr = bubbleSort(arr,true);
+		for(int i = 0; i <arr.length; i++) {
+			result += i==arr.length-1 ? arr[i] : arr[i] + ",";
 		}
-		return lotteryNum;
+		return result;
+		//return ascendingSort(arr);
 	}
 
 	
 
-	public boolean duplicatePrevention(int[] arr, int t) {
+	public boolean exist(int[] arr, int t) {
 		boolean flag = false;
-		for(int i = 0; i < 6; i++) {
-			if(arr[i] == t) {
+		for(int i = 0; i < arr.length; i++) {
+			if(t == arr[i]) {
 				flag = true;
 				}
 			}
 		return flag;
 	}
 	
-	public String ascendingSort(int[] arr) {
-		return createLotteryNum();
-	}
-
+	 public int[] bubbleSort(int[] arr, boolean flag) {
+		 int t = 0;
+		 for(int i = 0; i < arr.length; i++) {
+			 for(int j = 0; j < arr.length-1; j++) {
+				 if(flag) {
+					 if(arr[j] > arr[j+1]) {
+						 t = arr[j];
+						 arr[j] = arr[j+1];
+						 arr[j+1] = t;
+					 }
+				 }else {
+					 if(arr[j] < arr[j+1]) {
+						 t = arr[j];
+						 arr[j] = arr[j+1];
+						 arr[j+1] = t;
+					 }
+				 }
+			 }
+		 }
+		 /*
+		 for(int i = 0; i < arr.length; i++) {
+		 	for(int j = 1; j < arr.length - i; j++) {
+		 		
+		 		if(flag) {
+		 			if(arr[j] < arr[j-1]) {
+		 				t = arr[j-1];
+		 				arr[j-1] = arr[j];
+		 				arr[j] = t;
+		 			}
+		 		}else {
+		 			if(arr[j] > arr[j-1]) {
+		 				t = arr[j-1];
+		 				arr[j-1] = arr[j];
+		 				arr[j] = t;
+		 			}
+		 		}
+		 	}
+		 }
+		 */
+		return arr;
+	 }
 }
+	/*
+	public String ascendingSort(int[] arr) {
+		String result = "";
+		Arrays.sort(arr);
+		for(int i=0; i< arr.length; i++) {
+			result += i==5? arr[i] : arr[i] + ",";			
+		}
+		return result;
+	}
+	*/
+	
+	

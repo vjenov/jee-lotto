@@ -11,7 +11,7 @@ import com.lotto.web.domains.LottoBean;
 import com.lotto.web.serviceImpls.LottoServiceImpl;
 import com.lotto.web.services.LottoService;
 
-@WebServlet("/Lotto.do")
+@WebServlet("/lotto.do")
 public class LottoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -20,7 +20,6 @@ public class LottoController extends HttpServlet {
 		LottoBean param = new LottoBean();
 		LottoService service = new LottoServiceImpl();
 		service.createLotto(param);
-		System.out.println(param);
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 

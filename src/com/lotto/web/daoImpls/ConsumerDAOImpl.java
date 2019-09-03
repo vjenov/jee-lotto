@@ -1,10 +1,7 @@
 package com.lotto.web.daoImpls;
-import javax.swing.JOptionPane;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.List;
 import com.lotto.web.daos.ConsumerDAO;
 import com.lotto.web.domains.ConsumerBean;
 
