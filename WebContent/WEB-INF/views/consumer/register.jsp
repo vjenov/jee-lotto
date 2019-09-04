@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>회원가입</h1>
-<form id = "consumer" action="<%=request.getContextPath()%>/consumer.do">
+<form id = "consumer" action="<%=request.getContextPath()%>/lotto.do">
 	ID : <input type="text" name="cid"/> <br />
 	PASSWORD : <input type="password" name="pass"/> <br />
 	<input type="submit" value="전송"/>

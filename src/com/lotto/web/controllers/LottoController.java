@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bank.web.pool.Constants;
 import com.lotto.web.domains.LottoBean;
 import com.lotto.web.serviceImpls.LottoServiceImpl;
 import com.lotto.web.services.LottoService;
@@ -16,11 +17,20 @@ public class LottoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		switch(request.getParameter("action")) { //dest : login, join
+		case "move" :
+			request.getRequestDispatcher(String.format(Constants.VIEW_PATH,"consumer",request.getParameter("dest"))).forward(request, response);
+			break;
+		case "register" :
 		String money = request.getParameter("money");
 		LottoBean param = new LottoBean();
 		LottoService service = new LottoServiceImpl();
 		service.createLotto(param);
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher(String.format(Constants.VIEW_PATH,"consumer","login")).forward(request, response);
+		case "login" :
+			
+			break;
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

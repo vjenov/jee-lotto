@@ -4,18 +4,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로또 프로그램</title>
+<title>비트 로또</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-<form id="lotto" action="<%=request.getContextPath()%>/lotto.do">
-	입금액 : <input type="text" name="money"/> <br />
-	<input type="submit" value="로또번호생성"/>
+<div style = "background-color : yellow;">
+	<form id="account_form" action="<%=request.getContextPath()%>/lotto.do">
 	</form>
-</body>
+	<h2>welcome</h2>
+	<table border="1">
+		<tr>
+			<td>로그인</td>
+			<td><input id="btn" type="button" value="LOGIN"/></td>
+		</tr>
+		<tr>
+			<td>고객정보등록</td>
+			<td><a id="a_register" href=#>바로가기</a></td>
+		</tr>
+	</table>
+</div>
 <script>
-$('#lotto').submit(function(){
-	alert('로또구입완료');
-})
+$('#btn').click(function(){
+	location.assign('<%=request.getContextPath()%>/lotto.do?action=move&dest=login');
+	alert('버튼클릭');
+});
+$('#a_register').click(function(){
+	alert('a태그 클릭');
+	location.assign('<%=request.getContextPath()%>/lotto.do?action=move&dest=register');
+});
 </script>
+</body>
 </html>
